@@ -3,13 +3,14 @@ FROM node:alpine AS build
 
 WORKDIR /usr/src/app
 
-RUN npm cache clean --force
+#RUN npm cache clean --force
+#RUN npm install -g @angular/cli
+
+COPY package*.json .
+RUN npm install
 
 COPY . .
-
-RUN npm install -g @angular/cli
-RUN npm install
-RUN npm run build --prod
+RUN npm run build --output-path=./dist/app17 --prod
 
 ###
 FROM build AS serve
