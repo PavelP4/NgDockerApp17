@@ -1,0 +1,5 @@
+docker build --target ngi -t ng-docker-app17 .
+docker run -d -p 4242:80 ng-docker-app17
+
+docker build --target serve -t ng-docker-app17 .
+docker run -p 4201:4200 ng-docker-app17
