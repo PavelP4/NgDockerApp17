@@ -9,7 +9,7 @@
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
-              "outputPath": "dist/app17",
+              "outputPath": "dist/app17/browser",
               "index": "src/index.html",
               "main": "src/main.ts",
               "polyfills": ["zone.js"],
@@ -36,6 +36,61 @@
             "options": {
               "buildTarget": "app17:build"
             }
+          },
+          "server": {
+            "builder": "@angular-devkit/build-angular:server",
+            "options": {
+              "outputPath": "dist/app17/server",
+              "main": "server.ts",
+              "tsConfig": "tsconfig.server.json"
+            },
+            "configurations": {
+              "production": {
+                "buildOptimizer": true,
+                "outputHashing": "media",
+                "optimization": true,
+                "sourceMap": false,
+                "vendorChunk": false
+              },
+              "development": {
+                "optimization": false,
+                "sourceMap": true
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "serve-ssr": {
+            "builder": "@angular-devkit/build-angular:ssr-dev-server",
+            "configurations": {
+              "development": {
+                "browserTarget": "app17:build:development",
+                "serverTarget": "app17:server:development"
+              },
+              "production": {
+                "browserTarget": "app17:build:production",
+                "serverTarget": "app17:server:production"
+              }
+            },
+            "defaultConfiguration": "development"
+          },
+          "prerender": {
+            "builder": "@angular-devkit/build-angular:prerender",
+            "options": {
+              "routes": [
+                "/"
+              ]
+            },
+            "configurations": {
+              "production": {
+                "browserTarget": "app17:build:production",
+                "serverTarget": "app17:server:production"
+              },
+              "development": {
+                "browserTarget": "app17:build:development",
+                "serverTarget": "app17:server:development"
+              }
+            },
+            "defaultConfiguration": "production"
           }
         }
       }
